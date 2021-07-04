@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:beans="http://www.springframework.org/schema/websocket"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                           http://www.springframework.org/schema/websocket
+                           http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+    <!--扫描所有的包-->
+    <context:component-scan base-package="com.course"/>
+    <!--整合mvc-->
+    <mvc:annotation-driven />
+    <mvc:default-servlet-handler/>
+    <context:annotation-config/>
+
+    <!--上网查 后面加上去的-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.course.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <!-- 引入 db.properties 文件 -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="classpath:db.properties"/>
+    </bean>
+
+    <!--配置数据源-->
+    <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <!--数据库驱动：com.mysql.cj.jdbc.Driver-->
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <!--数据库url-->
+        <property name="url" value="${jdbc.url}"/>
+        <!--数据库用户名-->
+        <property name="username" value="${jdbc.username}"/>
+        <!--数据库密码-->
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!--配置MyBatis工厂SqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--注入数据源-->
+        <property name="dataSource" ref="datasource"/>
+        <!---->
+        <property name="mapperLocations" value="/mapper/*_mapper.xml" />
+        <!--指定MyBatis核心配置文件位置-->
+        <property name="configLocation" value="/mapper/mapper_configuration.xml" />
+    </bean>
+
+    <!--配置视图解析器-->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/" />    <!--前缀-->
+        <property name="suffix" value=".jsp" />     <!--后缀-->
+    </bean>
+    
+    <!-- 支持上传文件 -->  
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+    <property name="defaultEncoding" value="utf-8" />   <!--配置编码-->
+    <property name="maxUploadSize" value="10485760000" />   <!--配置上传文件大小-->
+    <property name="maxInMemorySize" value="40960" />
+    </bean>
+</beans>

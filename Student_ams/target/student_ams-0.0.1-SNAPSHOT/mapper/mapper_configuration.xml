@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="cacheEnabled" value="false" />
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias type="com.course.entity.Student" alias="Student" />
+        <typeAlias type="com.course.entity.Course" alias="Clz" />
+        <typeAlias type="com.course.entity.StudyInfo" alias="StudyInfo" />
+        <typeAlias type="com.course.entity.Admin" alias="Admin"/>
+    </typeAliases>
+<!--    <mappers>
+        <mapper resource="/mapper/admin_mapper.xml" />
+    </mappers>-->
+</configuration>

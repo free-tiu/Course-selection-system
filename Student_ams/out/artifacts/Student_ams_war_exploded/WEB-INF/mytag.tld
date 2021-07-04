@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+    version="2.0">
+    <description>A tag library exercising SimpleTag handlers.</description>
+    <tlib-version>1.0</tlib-version>
+    <short-name>common</short-name>
+    <uri>qyndom.xyz</uri>
+    <tag>
+        <description>Outputs Hello, World</description>
+        <name>page</name>
+        <tag-class>com.course.utils.NavigationTag</tag-class>
+        <body-content>JSP</body-content>
+        <attribute>
+        	<name>url</name>
+        	<required>true</required>
+        	<rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>
+
+<!--
+    short-name：taglib的名称，也称为前缀。比如“c:out value=""/” 里的“c”
+
+    name：tag的名字。例如“c:out value=""/” 里的"out”，我们的类也取名为out，由于有前缀作区分，不会同其他库的同名tag组件混淆
+    tag-class：完整的tag组件路径,记着带包名
+    body-content：指tag之间的内容。例如c:out value="" ...... /c 起始和关闭标签之间就是body-content。由于没有处理body-content ，所以上面设为empty,如果是嵌套标签,或则是要在服务器端处理标签体的话,就是jsp了
+    “attribute”里的name：属性名字。例如c:out value=""/里的value。名字可任意取，只要类里提供相应的set方法即可。
+    required：是否必填属性。
+    rtexprvalue：是否支持运行时表达式取值就是是否可以<%=%>或则是${}方式传值。
+-->
